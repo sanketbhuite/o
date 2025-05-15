@@ -1,0 +1,197 @@
+#include<iostream.h>
+#include<process.h>
+#include<conio.h>
+class	node
+{
+   int  info;
+   node	*next;
+   public:
+   node*   create();
+   void    isempty();
+   void    push(int);
+   int	   pop();
+   void    display();
+}*list;
+node*    node::create()
+{
+   node   *z;
+   z=new    node;
+   return(z);
+}
+void    node::isempty()
+{
+    if(list==NULL)
+      cout<<"\nStack is Empty..";
+    else
+      cout<<"\nStack is NOT empty..";
+}
+void   node::push(int   x)
+{
+  node   *p,*q;
+  p=list;
+  if(p==NULL)
+  {
+     p=create();
+     p->info=x;
+     p->next=NULL;
+     list=p;
+  }
+  else
+  {
+     q=create();
+     q->info=x;
+     q->next=p;
+     list=q;
+  }
+  cout<<"\nElement is Pushed...";
+}
+
+int    node::pop()
+{
+   int z;
+   node   *p;
+   p=list;
+   if(p==NULL)
+   {
+     cout<<"\nStack underflows..";
+     return(0);
+   }
+   else  if(p->next==NULL)
+   {
+      z=p->info;
+      delete   p;
+      list=NULL;
+      return(z);
+   }
+   else
+   {
+      z=p->info;
+      list=p->next;
+      delete   p;
+      return(z);
+   }
+}
+void   node::display()
+{
+   node   *p;
+   p=list;
+   while(p!=NULL)
+   {
+     cout<<"\n"<<p->info;
+     p=p->next;
+   }
+}
+void   main()
+{
+   int z;
+   int ch,x;
+   node   obj;
+    clrscr();
+    do
+    {
+	cout<<"\nEnter your choice=";
+	cout<<"\n1:Isempty\n2:Push\n3:Pop\n4:Display\n5:Exit  ";
+	cin>>ch;
+	switch(ch)
+	{
+	      case  1:
+			obj.isempty();
+			break;
+	      case 2:
+			cout<<"\nEnter any ele=";
+			cin>>x;
+			obj.push(x);  //call
+			break;
+	      case   3:
+			z=obj.pop();
+			cout<<"\nPopped Val="<<z;
+			break;
+	      case    4:
+			obj.display();
+			break;
+	      case    5:
+			exit(1);
+	      }
+	}while(ch!=5);
+	getch();
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

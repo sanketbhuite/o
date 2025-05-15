@@ -1,0 +1,314 @@
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+class    node
+{
+   int  info;
+   node *next;
+   public:
+	node*  create();
+	void	ins_beg(int);
+	void	ins_end(int);
+	void	ins_bet(int,int);
+	int	rem_beg();
+	int	rem_end();
+	int	rem_bet(int);
+	void	display();
+}*list;
+node*    node::create()
+{
+     node *z;
+     z=new   node;
+     return(z);
+}
+void   node::ins_beg(int  x)
+{
+    node   *p,*q;
+    p=list;
+    if(p==NULL)
+    {
+       p=create();
+       p->info=x;
+       p->next=NULL;
+       list=p;
+    }
+    else
+    {
+	q=create();
+	q->info=x;
+	q->next=p;
+	list=q;
+    }
+    cout<<"\nNode is inserted...";
+}
+void   node::ins_end(int  x)
+{
+    node   *p,*q;
+    p=list;
+    if(p==NULL)
+    {
+       p=create();
+       p->info=x;
+       p->next=NULL;
+       list=p;
+    }
+    else
+    {
+	while(p->next!=NULL)
+	{
+	  p=p->next;
+	}
+	q=create();
+	q->info=x;
+	q->next=NULL;
+	p->next=q;
+    }
+    cout<<"\nNode is inserted...";
+}
+void   node::ins_bet(int after,int  x)
+{
+    node   *p,*q;
+    p=list;
+    if(p==NULL||p->next==NULL)
+    {
+	cout<<"\nInsert Bet not possible";
+    }
+    else
+    {
+	while(p->next!=NULL)
+	{
+	   if(p->info==after)
+	   {
+	      q=create();
+	      q->info=x;
+	      q->next=p->next;
+	      p->next=q;
+	   }
+	   p=p->next;
+	}
+    }
+    cout<<"\nNode is inserted...";
+}
+
+int   node::rem_beg()
+{
+      int z;
+      node   *p;
+      p=list;
+      if(p==NULL)
+      {
+	 cout<<"\nL L is empty";
+      }
+      else if(p->next==NULL)
+      {
+	   z=p->info;
+	   delete(p);
+	   list=NULL;
+	   return(z);
+      }
+      else
+      {
+	 z=p->info;
+	 list=p->next;
+	 delete(p);
+	 return(z);
+      }
+}
+int  node::rem_end()
+{
+     int z;
+      node   *p,*temp;
+      p=list;
+      if(p==NULL)
+      {
+	 cout<<"\nL L is empty";
+      }
+      else if(p->next==NULL)
+      {
+	   z=p->info;
+	   delete(p);
+	   list=NULL;
+	   return(z);
+      }
+      else
+      {
+	  while(p->next->next!=NULL)
+	  {
+	     p=p->next;
+	  }
+	  temp=p->next;
+	  z=temp->info;
+	  p->next=NULL;
+	  delete(temp);
+	  return(z);
+      }
+}
+int   node::rem_bet(int  after)
+{
+     int z;
+     node   *p,*temp;
+     p=list;
+     if(p==NULL)
+     {
+       cout<<"\n L L is empty";
+     }
+     else if(p->next==NULL||p->next->next==NULL)
+     {
+       cout<<"\nRemove bet not possible";
+     }
+     else
+     {
+	   while(p->next!=NULL)
+	   {
+	      if(p->info==after)
+	      {
+		   temp=p->next;
+		   z=temp->info;
+		   p->next=temp->next;
+		   delete(temp);
+		   return(z);
+	      }
+	      p=p->next;
+	   }
+     }
+}
+void  node::display()
+{
+  node  *p;
+  p=list;
+  while(p!=NULL)
+  {
+     cout<<"\t"<<p->info;
+     p=p->next;
+  }
+}
+void   main()
+{
+   int  ch,n,af,z;
+   clrscr();
+   node   obj;
+do
+{
+   cout<<"\nEnter your choice= ";
+   cout<<"\n1:Insert Beg\n2:Insert End\n3:Insert Bet\n4:Remove beg\n5:Remove End\n6:Remove Bet\n7:Display\n8:Exit";
+   cin>>ch;
+   switch(ch)
+   {
+      case   1:
+	       cout<<"\nEnter val to insert=";
+	       cin>>n;
+	       obj.ins_beg(n);  //call
+	       break;
+      case   2:
+	       cout<<"\nEnter val to insert=";
+	       cin>>n;
+	       obj.ins_end(n);  //call
+	       break;
+      case   3:
+		cout<<"\nAfter which node?";
+		cin>>af;
+		cout<<"\nEnter val to insert=";
+		cin>>n;
+		obj.ins_bet(af,n);
+		break;
+      case   4:
+		z=obj.rem_beg();
+		cout<<"\nRemoved val="<<z;
+		break;
+      case   5:
+		z=obj.rem_end();
+		cout<<"\nRemoved val="<<z;
+		break;
+      case    6:
+		cout<<"\nAfter which node?";
+		cin>>af;
+		z=obj.rem_bet(af);
+		cout<<"\nRemoved val="<<z;
+		break;
+      case    7:
+		obj.display();
+		break;
+      case    8:
+		exit(1);
+      }
+ }while(ch!=8);
+ getch();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

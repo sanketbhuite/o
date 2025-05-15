@@ -1,0 +1,223 @@
+#include<iostream.h>
+#include<conio.h>
+#include<process.h>
+#define max  5
+class	queue
+{
+    int  item[max],front,rear;
+    public:
+	void    create(queue*);
+	void	isempty(queue*);
+	void 	isfull(queue*);
+	void	insert(queue*,int);
+	int	remove(queue*);
+	void	display(queue*);
+};
+void	queue::create(queue *q)
+{
+   q->front=q->rear=-1;
+   cout<<"\nQueue is created..";
+}
+void	queue::isempty(queue *q)
+{
+   if(q->front == q->rear)
+   {
+      cout<<"\nQueue is Empty";
+   }
+   else
+   {
+      cout<<"\nQueue is NOT empty...";
+   }
+}
+void	queue::isfull(queue *q)
+{
+   if(q->rear==max-1)
+   {
+     cout<<"\nQueue is FULL";
+   }
+   else
+   {
+     cout<<"\nQueue is NOT FULL";
+   }
+}
+void   queue::insert(queue *q,int  x)
+{
+   if(q->rear==max-1)
+   {
+      cout<<"\nQueue overflow...";
+   }
+   else
+   {
+      ++q->rear;
+      q->item[q->rear]=x;
+      cout<<"\nElement is Inserted...";
+   }
+}
+
+int    queue::remove(queue *q)
+{
+    if(q->front ==  q->rear)
+    {
+       cout<<"\nQueue underflows...";
+       return(0);
+    }
+    else
+    {
+       ++q->front;
+       return(q->item[q->front]);
+    }
+}
+
+void   queue::display(queue *q)
+{
+   int i;
+   for(i=q->front+1;i<=q->rear;i++)
+   {
+      cout<<"\t"<<q->item[i];
+   }
+}
+
+void   main()
+{
+    int   ch,x,z;
+    queue   obj;
+    queue    *q,p;
+    q=&p;   //Ini.of ptr
+     clrscr();
+     do
+     {
+	cout<<"\nEnter your choice=";
+	cout<<"\n1:Create\n2:Isempty\n3:ISfull\n4:Insert\n5:Remove\n6:Display\n7:Exit   ";
+	cin>>ch;
+	switch(ch)
+	{
+		case	1:
+			obj.create(q);  //call
+			break;
+		case	2:
+			obj.isempty(q);  //call
+			break;
+		case    3:
+			obj.isfull(q);   //call
+			break;
+		case    4:
+			cout<<"\nEnter ele to insert=";
+			cin>>x;
+			obj.insert(q,x);   //call
+			break;
+		case	5:
+			z=obj.remove(q);  //call
+			cout<<"\nRemoved val="<<z;
+			break;
+		case	6:
+			obj.display(q);   //call
+			break;
+		case	7:
+			exit(4);
+	  }
+	}while(ch!=7);
+	getch();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
