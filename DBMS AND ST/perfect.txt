@@ -1,0 +1,18 @@
+declare
+       x number(4);          
+       s number(4):=0; 
+    begin
+       x:=&n;         
+       for i in 1..(x/2) 
+       loop
+          if mod(x,i)=0 then
+            s:= s+i; 
+          end if;
+       end loop;
+       if s=x then
+            dbms_output.put_line(x||'is a Perfect Number.');
+       else
+            dbms_output.put_line(x||'is not a Perfect Number.');
+       end if;
+    end;
+/

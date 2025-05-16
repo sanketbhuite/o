@@ -1,0 +1,111 @@
+
+Assignment 1
+
+1. Internet Banking Application
+Test Case ID: TC_IB_01
+Test Scenario: Login functionality
+Test Steps:
+  1. Open the internet banking website.
+  2. Enter valid username and password.
+  3. Click on the 'Login' button.
+Expected Result: User is logged in and redirected to the dashboard.
+
+Test Case ID: TC_IB_02
+Test Scenario: Fund transfer within own accounts
+Test Steps:
+  1. Login to internet banking.
+  2. Go to 'Fund Transfer' section.
+  3. Select own accounts and enter amount.
+  4. Confirm transfer.
+Expected Result: Amount is transferred and confirmation message is shown.
+
+Test Case ID: TC_IB_03
+Test Scenario: Password reset functionality
+Test Steps:
+  1. Click on 'Forgot Password'.
+  2. Enter registered email and follow instructions.
+Expected Result: Password reset link sent to email.
+
+Test Case ID: TC_IB_04
+Test Scenario: Session timeout
+Test Steps:
+  1. Login and remain idle for 10 minutes.
+Expected Result: Session should expire and user is logged out.
+
+Test Case ID: TC_IB_05
+Test Scenario: Invalid OTP handling
+Test Steps:
+  1. Attempt transaction.
+  2. Enter wrong OTP.
+Expected Result: Transaction is denied and error message displayed.
+
+2. Gmail Login Functionality
+Test Case ID: TC_GM_01
+Test Scenario: Valid login
+Test Steps:
+  1. Open Gmail login page.
+  2. Enter correct username and password.
+Expected Result: User is redirected to inbox.
+
+Test Case ID: TC_GM_02
+Test Scenario: Invalid credentials
+Test Steps:
+  1. Enter wrong email or password.
+Expected Result: Error message is displayed.
+
+Test Case ID: TC_GM_03
+Test Scenario: Forgot password
+Test Steps:
+  1. Click 'Forgot password'.
+  2. Enter email and follow prompts.
+Expected Result: Reset link is sent.
+
+Test Case ID: TC_GM_04
+Test Scenario: Two-step verification
+Test Steps:
+  1. Login with valid credentials.
+  2. Enter verification code.
+Expected Result: Login is successful after verification.
+
+Test Case ID: TC_GM_05
+Test Scenario: Empty field validation
+Test Steps:
+  1. Click 'Next' without entering any data.
+Expected Result: Error messages for required fields.
+
+3. College Admission Application
+Test Case ID: TC_CA_01
+Test Scenario: Valid form submission
+Test Steps:
+  1. Fill form with valid data.
+  2. Upload documents.
+  3. Submit form.
+Expected Result: Confirmation message shown.
+
+Test Case ID: TC_CA_02
+Test Scenario: Mandatory field validation
+Test Steps:
+  1. Leave required fields empty.
+  2. Try to submit.
+Expected Result: Validation messages appear.
+
+Test Case ID: TC_CA_03
+Test Scenario: Document upload
+Test Steps:
+  1. Click upload.
+  2. Choose valid document.
+Expected Result: Document is uploaded successfully.
+
+Test Case ID: TC_CA_04
+Test Scenario: Confirmation message
+Test Steps:
+  1. Submit complete application.
+Expected Result: Success message is displayed.
+
+Test Case ID: TC_CA_05
+Test Scenario: Notification on submission
+Test Steps:
+  1. Submit application.
+Expected Result: Email/SMS notification is received.
+
+(Assignment 2 and 3 test cases will follow the same structure. To manage space and simplicity, continuing them in the next part.)

@@ -1,0 +1,32 @@
+create or replace procedure check_armstrong_number(p_number in number) is
+        n number(4);  
+        s number(4);
+        r number(4);        
+        t  number(4);  
+     begin
+        n := p_number;  
+        s := 0;         
+        t := n;         
+
+       while (n > 0) loop
+           r :=mod(n, 10);          
+           s := s + r * r * r;      
+           n :=floor(n / 10);       
+       end loop;
+       if s = t then
+           dbms_output.put_line(t||' is an Armstrong number.');
+       else
+           dbms_output.put_line(t||' is not an Armstrong number.');
+       end if;
+   end check_armstrong_number;
+   /
+
+
+
+
+
+begin
+        check_armstrong_number(153);  
+   end;
+   /      dbms_output.put_line(t||' is not an Armstrong number.');
+  

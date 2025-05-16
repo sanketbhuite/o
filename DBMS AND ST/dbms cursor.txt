@@ -1,0 +1,592 @@
+                                                         
+                                                         Practical Assignment-4(PL/SQL)
+
+Q1]create a cursor to increase salary of employee from employee table.
+ Employee(emp_no,emp_name,salary)use %found,%notfound,%rowcount attributes.
+
+SQL> create table Employee(emp_no number(4),emp_name varchar2(10),salary number(10));
+
+Table created.
+
+SQL>insert into Employee values (1, 'alice', 4000);
+
+1 row created.
+
+SQL>insert into Employee values (2, 'bob', 4500);
+
+1 row created.
+
+SQL>insert into Employee values (3, 'charlie', 5000);
+
+1 row created.
+
+SQL>insert into Employee values (4, 'diana', 5500);
+
+1 row created.
+
+SQL>insert into Employee values (5, 'ethan', 6000);
+
+1 row created.
+
+SQL>insert into Employee values (6, 'fiona', 6500);
+
+1 row created.
+
+SQL>insert into Employee values (7, 'george', 7000);
+
+1 row created.
+
+SQL>insert into Employee values (8, 'hannah', 7500);
+
+1 row created.
+
+SQL>insert into Employee values (9, 'ian', 8000);
+
+1 row created.
+
+SQL>insert into Employee values (10, 'julia', 8500);
+
+1 row created.
+
+SQL> select * from Employee;
+
+    EMP_NO EMP_NAME       SALARY
+---------- ---------- ----------
+         1 alice            4000
+         2 bob              4500
+         3 charlie          5000
+         4 diana            5500
+         5 ethan            6000
+         6 fiona            6500
+         7 george           7000
+         8 hannah           7500
+         9 ian              8000
+        10 julia            8500
+
+10 rows selected.
+SQL>declare
+           total_rows number(4);
+         begin
+           update Employee set salary=salary+500;
+           if sql %found then
+              total_rows:=sql%rowcount;
+              dbms_output.put_line(total_rows||'employee salary updated.');
+           elsif sql %notfound then
+             dbms_output.put_line('no employee updated.');
+          end if;
+        end;
+    /
+10employee salary updated.
+
+PL/SQL procedure successfully completed.
+SQL> select * from Employee;
+
+    EMP_NO EMP_NAME       SALARY
+---------- ---------- ----------
+         1 alice            4500
+         2 bob              5000
+         3 charlie          5500
+         4 diana            6000
+         5 ethan            6500
+         6 fiona            7000
+         7 george           7500
+         8 hannah           8000
+         9 ian              8500
+        10 julia            9000
+
+10 rows selected.
+
+Q2]create a cursor to increase salary of employee from employee table using explicit cursor.
+  use %found,%notfound,%rowcount,%isopen attributes.
+
+SQL>declare
+      cursor cur_emp is
+            select salary from Employee;
+        dsalary number(10);
+        total_rows number:=0;
+    begin
+        open cur_emp;
+       loop
+           fetch cur_emp into dsalary;
+           if cur_emp%notfound then
+               exit;
+           end if;
+           update Employee
+           set salary = salary + 1000
+           where salary = dsalary;
+           total_rows:=total_rows+sql%rowcount;
+       end loop;
+       dbms_output.put_line(total_rows ||'employee salary(s)updated.');
+       if cur_emp%isopen then
+           close cur_emp;
+       end if;
+   end;
+   /
+30employee salary(s)updated.
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from Employee;
+
+    EMP_NO EMP_NAME       SALARY
+---------- ---------- ----------
+         1 alice            9500
+         2 bob             10000
+         3 charlie          9500
+         4 diana           10000
+         5 ethan            9500
+         6 fiona           10000
+         7 george           9500
+         8 hannah          10000
+         9 ian              9500
+        10 julia           10000
+
+10 rows selected.
+
+Q3]create a cursor to calculate area of circle and insert this area into circle_area table.
+(take radius from 1 to 100) using simple loop,for loop.
+
+SQL>CREATE TABLE circle_area (
+            radius INT,
+           area FLOAT
+      );
+
+Table created.
+
+SIMPLE LOOP
+SQL>DECLARE
+            radius INT;
+            area FLOAT;
+            pi CONSTANT FLOAT := 3.14; 
+            CURSOR c1 IS SELECT LEVEL FROM dual CONNECT BY LEVEL <= 100;
+        BEGIN
+            OPEN c1;
+            LOOP
+                FETCH c1 INTO radius;
+              EXIT WHEN c1%NOTFOUND;
+              area := pi * radius * radius;  -- Calculate area using the smaller value of π
+              INSERT INTO circle_area (radius, area) VALUES (radius, area);
+          END LOOP;
+          CLOSE c1;
+          COMMIT;  
+      END;
+      /
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from circle_area;
+
+    RADIUS       AREA
+---------- ----------
+         1       3.14
+         2      12.56
+         3      28.26
+         4      50.24
+         5       78.5
+         6     113.04
+         7     153.86
+         8     200.96
+         9     254.34
+        10        314
+        11     379.94
+
+    RADIUS       AREA
+---------- ----------
+        12     452.16
+        13     530.66
+        14     615.44
+        15      706.5
+        16     803.84
+        17     907.46
+        18    1017.36
+        19    1133.54
+        20       1256
+        21    1384.74
+        22    1519.76
+
+    RADIUS       AREA
+---------- ----------
+        23    1661.06
+        24    1808.64
+        25     1962.5
+        26    2122.64
+        27    2289.06
+        28    2461.76
+        29    2640.74
+        30       2826
+        31    3017.54
+        32    3215.36
+        33    3419.46
+
+    RADIUS       AREA
+---------- ----------
+        34    3629.84
+        35     3846.5
+        36    4069.44
+        37    4298.66
+        38    4534.16
+        39    4775.94
+        40       5024
+        41    5278.34
+        42    5538.96
+        43    5805.86
+        44    6079.04
+
+    RADIUS       AREA
+---------- ----------
+        45     6358.5
+        46    6644.24
+        47    6936.26
+        48    7234.56
+        49    7539.14
+        50       7850
+        51    8167.14
+        52    8490.56
+        53    8820.26
+        54    9156.24
+        55     9498.5
+
+    RADIUS       AREA
+---------- ----------
+        56    9847.04
+        57   10201.86
+        58   10562.96
+        59   10930.34
+        60      11304
+        61   11683.94
+        62   12070.16
+        63   12462.66
+        64   12861.44
+        65    13266.5
+        66   13677.84
+
+    RADIUS       AREA
+---------- ----------
+        67   14095.46
+        68   14519.36
+        69   14949.54
+        70      15386
+        71   15828.74
+        72   16277.76
+        73   16733.06
+        74   17194.64
+        75    17662.5
+        76   18136.64
+        77   18617.06
+
+    RADIUS       AREA
+---------- ----------
+        78   19103.76
+        79   19596.74
+        80      20096
+        81   20601.54
+        82   21113.36
+        83   21631.46
+        84   22155.84
+        85    22686.5
+        86   23223.44
+        87   23766.66
+        88   24316.16
+
+    RADIUS       AREA
+---------- ----------
+        89   24871.94
+        90      25434
+        91   26002.34
+        92   26576.96
+        93   27157.86
+        94   27745.04
+        95    28338.5
+        96   28938.24
+        97   29544.26
+        98   30156.56
+        99   30775.14
+
+    RADIUS       AREA
+---------- ----------
+       100      31400
+
+FOR LOOP
+ SQL>BEGIN
+     FOR radius IN 1..100 LOOP
+            DECLARE
+                area FLOAT;
+            BEGIN
+                area := 3.14159 * radius * radius;  -- Calculate area
+                INSERT INTO circle_area (radius, area) VALUES (radius, area);
+            END;
+        END LOOP;
+       COMMIT;  -- Commit the transaction
+   END;
+  /
+
+PL/SQL procedure successfully completed.
+
+SQL> select *from circle_area;
+
+    RADIUS       AREA
+---------- ----------
+         1    3.14159
+         2   12.56636
+         3   28.27431
+         4   50.26544
+         5   78.53975
+         6  113.09724
+         7  153.93791
+         8  201.06176
+         9  254.46879
+        10    314.159
+
+    RADIUS       AREA
+---------- ----------
+        11  380.13239
+        12  452.38896
+        13  530.92871
+        14  615.75164
+        15  706.85775
+        16  804.24704
+        17  907.91951
+        18 1017.87516
+        19 1134.11399
+        20   1256.636
+        21 1385.44119
+
+    RADIUS       AREA
+---------- ----------
+        22 1520.52956
+        23 1661.90111
+        24 1809.55584
+        25 1963.49375
+        26 2123.71484
+        27 2290.21911
+        28 2463.00656
+        29 2642.07719
+        30   2827.431
+        31 3019.06799
+        32 3216.98816
+
+    RADIUS       AREA
+---------- ----------
+        33 3421.19151
+        34 3631.67804
+        35 3848.44775
+        36 4071.50064
+        37 4300.83671
+        38 4536.45596
+        39 4778.35839
+        40   5026.544
+        41 5281.01279
+        42 5541.76476
+        43 5808.79991
+
+    RADIUS       AREA
+---------- ----------
+        44 6082.11824
+        45 6361.71975
+        46 6647.60444
+        47 6939.77231
+        48 7238.22336
+        49 7542.95759
+        50   7853.975
+        51 8171.27559
+        52 8494.85936
+        53 8824.72631
+        54 9160.87644
+
+    RADIUS       AREA
+---------- ----------
+        55 9503.30975
+        56 9852.02624
+        57 10207.0259
+        58 10568.3088
+        59 10935.8748
+        60  11309.724
+        61 11689.8564
+        62  12076.272
+        63 12468.9707
+        64 12867.9526
+        65 13273.2178
+
+    RADIUS       AREA
+---------- ----------
+        66  13684.766
+        67 14102.5975
+        68 14526.7122
+        69   14957.11
+        70  15393.791
+        71 15836.7552
+        72 16286.0026
+        73 16741.5331
+        74 17203.3468
+        75 17671.4438
+        76 18145.8238
+
+    RADIUS       AREA
+---------- ----------
+        77 18626.4871
+        78 19113.4336
+        79 19606.6632
+        80  20106.176
+        81  20611.972
+        82 21124.0512
+        83 21642.4135
+        84  22167.059
+        85 22697.9878
+        86 23235.1996
+        87 23778.6947
+
+    RADIUS       AREA
+---------- ----------
+        88  24328.473
+        89 24884.5344
+        90  25446.879
+        91 26015.5068
+        92 26590.4178
+        93 27171.6119
+        94 27759.0892
+        95 28352.8498
+        96 28952.8934
+        97 29559.2203
+        98 30171.8304
+
+    RADIUS       AREA
+---------- ----------
+        99 30790.7236
+       100    31415.9
+
+100 rows selected.
+
+Q4]create a cursor to display records from employee.
+
+SQL>declare
+        demp_no number(4);
+        demp_name varchar2(10);
+        dsalary  number(10);
+        cursor cur_emp is select *from Employee;
+    begin
+        open cur_emp;
+        if cur_emp%isopen then
+          loop
+           fetch cur_emp into demp_no,demp_name,dsalary;
+           exit when cur_emp%notfound;
+           dbms_output.put_line(demp_no||''||demp_name||''||dsalary);
+         end loop;
+      else
+        dbms_output.put_line('unable to open cursor');
+     end if;
+   close cur_emp;
+   end;
+   /
+1alice9500
+2bob10000
+3charlie9500
+4diana10000
+5ethan9500
+6fiona10000
+7george9500
+8hannah10000
+9ian9500
+10julia10000
+
+PL/SQL procedure successfully completed.
+ 
+Q5]create a cursor for display 5 highest earners.
+
+SQL>declare
+        demp_no number(4);
+        demp_name varchar2(10);
+        dsalary  number(10);
+        cursor c_emp is
+            select emp_no, emp_name, salary
+            from (
+                select emp_no, emp_name, salary
+                from Employee
+               order by salary desc
+           )
+           where rownum <= 5; 
+       v_rowcount number := 0; 
+   begin
+      open c_emp;
+      dbms_output.put_line('emp_no, emp_name, salary');
+      loop
+        fetch c_emp into demp_no, demp_name, dsalary;
+        exit when c_emp%notfound; 
+        dbms_output.put_line(demp_no || ', ' || demp_name || ', ' || dsalary);
+        v_rowcount := v_rowcount + 1; 
+      end loop;
+      close c_emp;
+   end;
+  /
+emp_no, emp_name, salary
+2, bob, 10000
+4, diana, 10000
+6, fiona, 10000
+10, julia, 10000
+8, hannah, 10000
+
+PL/SQL procedure successfully completed.
+
+Q6]create a cursor for display 5 lowest earners.
+
+SQL>declare
+           demp_no number(4);
+            demp_name varchar2(10);
+            dsalary  number(10);
+            cursor c_emp is
+                select emp_no, emp_name, salary
+                from (
+                  select emp_no, emp_name, salary
+                    from Employee
+                 order by salary asc
+             )
+              where rownum <= 5;
+          v_rowcount number := 0;
+      begin
+         open c_emp;
+         dbms_output.put_line('emp_no, emp_name, salary');
+         loop
+           fetch c_emp into demp_no, demp_name, dsalary;
+           exit when c_emp%notfound;
+           dbms_output.put_line(demp_no || ', ' || demp_name || ', ' || dsalary);
+           v_rowcount := v_rowcount + 1;
+         end loop;
+         close c_emp;
+      end;
+      /
+emp_no, emp_name, salary
+1, alice, 9500
+3, charlie, 9500
+5, ethan, 9500
+9, ian, 9500
+7, george, 9500
+
+PL/SQL procedure successfully completed.
+
+Q7]create a parameterized cursor. 
+
+SQL>declare
+            cursor c1 (c number) is
+            select emp_name, salary
+            from Employee
+            where emp_no = c;
+        v_emp_name varchar2(10);
+        v_salary number(10);
+        n number;
+    begin
+      n := &n;
+       open c1(n);
+       fetch c1 into v_emp_name, v_salary;
+       if c1%found then
+           dbms_output.put_line('Employee Name:'||v_emp_name||',Salary'||v_salary);
+       else
+           dbms_output.put_line('No employee found with emp_no:'|| n);
+       end if;
+       close c1;
+   end;
+   /
+Enter value for n: 3
+old  10:     n := &n;
+new  10:     n := 3;
+Employee Name:charlie,Salary9500
+
+PL/SQL procedure successfully completed.

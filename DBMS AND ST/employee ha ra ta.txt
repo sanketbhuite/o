@@ -1,0 +1,32 @@
+ DECLARE 
+            bs NUMBER := &bs; 
+             ta             NUMBER; 
+              da             NUMBER; 
+              hra            NUMBER; 
+              income_tax     NUMBER; 
+             pro_fund       NUMBER; 
+             total_salary   NUMBER; 
+          net_salary     NUMBER; 
+      BEGIN 
+          ta := bs * 0.15; 
+           da := bs * 0.02; 
+           hra := bs * 0.10; 
+           total_salary := bs + ta + da + hra; 
+       
+            income_tax := total_salary * 0.05; 
+           pro_fund := total_salary * 0.10; 
+      
+           net_salary := total_salary - (income_tax + pro_fund); 
+      
+           DBMS_OUTPUT.PUT_LINE('Basic Salary: Rs. ' || bs); 
+           DBMS_OUTPUT.PUT_LINE('Travel Allowance: Rs. ' || ta); 
+           DBMS_OUTPUT.PUT_LINE('Dearness Allowance: Rs. ' || da); 
+           DBMS_OUTPUT.PUT_LINE('House Rent Allowance ): Rs. ' || hra); 
+           DBMS_OUTPUT.PUT_LINE('Total Salary: Rs. ' || total_salary); 
+ 
+ 
+          DBMS_OUTPUT.PUT_LINE('Income Tax: Rs. ' || income_tax); 
+           DBMS_OUTPUT.PUT_LINE('Provident Fund: Rs. ' || pro_fund); 
+            DBMS_OUTPUT.PUT_LINE('Net Salary: Rs. ' || net_salary); 
+        END; 
+        / 

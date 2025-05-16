@@ -1,0 +1,335 @@
+                                                         
+
+Q1]write a function addition of any two numbers.
+
+SQL> create or replace function add_numbers(n1 in number, n2 in number)
+    return number is
+        n3 number;
+    begin
+        n3 := n1 + n2;
+        return n3;
+    end;
+   /
+Function created.
+
+SQL> declare
+        x number(4);
+        y number(4);
+        z number(4);
+    begin
+        x := &x; 
+        y := &y;    
+        z := add_numbers(x, y);  
+       dbms_output.put_line('addition:'|| z);
+   end;
+  /
+Enter value for x: 23
+old   6:     x := &x;  
+new   6:     x := 23; 
+Enter value for y: 67
+old   7:     y := &y;  
+new   7:     y := 67;  
+addition: 90
+PL/SQL procedure successfully completed.
+
+Q2]write a  function square of given numbers.
+
+SQL> create or replace function square(n in number)
+    return number is
+        result number;
+    begin
+        result := n * n;  
+        return result;     
+    end;
+    /
+Function created.
+
+SQL> declare
+        x number;
+        squared_value number;
+    begin
+        x := &x;  
+       squared_value := square(x); 
+        dbms_output.put_line('the square of '||x||' is: '|| squared_value);
+    end;
+   /
+Enter value for x: 4
+old   5:     x := &x;  
+new   5:     x := 4;  
+the square of 4 is: 16
+PL/SQL procedure successfully completed.
+
+Q3]write a function to check whether given number is Prime or not.
+
+SQL> create or replace function is_prime(n in number)
+    return varchar2 is
+        b number := 0;
+        c number := 0;
+    begin
+        for i in 1..n loop
+            b := mod(n, i);
+            if b = 0 then
+                c := c + 1;
+           end if;
+       end loop;
+ 
+       if c = 2 then
+           return n || ' is a prime number.';
+       else
+           return n || ' is not a prime number.';
+       end if;
+   end;
+  /
+Function created.
+
+SQL> declare
+        x number;
+        result varchar2(50);
+    begin
+        x := &x; 
+  
+        result := is_prime(x); 
+        dbms_output.put_line(result);
+    end;
+   /
+Enter value for x: 5
+old   5:     x := &x;  
+new   5:     x := 5;  
+5 is a prime number.
+PL/SQL procedure successfully completed.
+
+Q4]write a function to check whether given number is Perfect or not.
+
+SQL> create or replace function is_perfect(n in number)
+    return varchar2 is
+        s number := 0;
+    begin
+        for i in 1..(n/2) loop
+            if mod(n, i) = 0 then
+                s := s + i;
+            end if;
+       end loop;
+ 
+       if s = n then
+           return n || ' is a perfect number.';
+       else
+           return n || ' is not a perfect number.';
+       end if;
+   end;
+   /
+Function created.
+
+SQL> declare
+        x number;
+        result varchar2(50);
+    begin
+        x := &n; 
+        result := is_perfect(x); 
+        dbms_output.put_line(result);
+    end;
+   /
+Enter value for n: 6
+old   5:     x := &n;  
+new   5:     x := 6;  
+6 is a perfect number.
+PL/SQL procedure successfully completed.
+
+Q5]write a function to check whether given number is Armstrong or not.
+
+SQL> create or replace function is_armstrong(n in number)
+    return varchar2 is
+        r number;                  
+        s number := 0;             
+        t number := n;             
+        num_digits number := 0;    
+        temp number := n;          
+    begin
+
+       while (temp > 0) loop
+          temp := floor(temp / 10);
+           num_digits := num_digits + 1;
+       end loop;
+      temp := t;
+       while (temp > 0) loop
+           r := mod(temp, 10);                   
+          s := s + power(r, num_digits);         
+           temp := floor(temp / 10);               
+       end loop;
+       if s = t then
+           return t || ' is an armstrong number.';
+       else
+           return t || ' is not an armstrong number.';
+       end if;
+   end;
+   /
+Function created.
+
+SQL> declare
+        x number;                  
+        result varchar2(50);       
+    begin
+        x := &n;                   
+        result := is_armstrong(x); 
+        dbms_output.put_line(result); 
+    end;
+   /
+Enter value for n: 153
+old   5:     x := &n;                  
+new   5:     x := 153;                   
+153 is an armstrong number.
+PL/SQL procedure successfully completed.
+
+Q6]write a function to calculate area of circle.
+
+SQL> create or replace function calculate_area_of_circle(radius in number)
+    return number is
+        area number;  
+    begin
+        area := 3.14 * radius * radius;  
+        return area;  
+    end;
+   /
+Function created.
+
+SQL> declare
+        r number;                  
+        area number;               
+    begin
+        r := &radius;              
+  
+        area := calculate_area_of_circle(r); 
+        dbms_output.put_line('the area of the circle with radius'||r||'is:'||area); 
+    end;
+  /
+Enter value for radius: 5
+old   5:     r := &radius;              
+new   5:     r := 5;              
+the area of the circle with radius 5 is: 78.5
+PL/SQL procedure successfully completed.
+
+Q7]write a function to check whether given number is positive or negative.
+
+SQL> create or replace function check_positive_negative(n in number)
+    return varchar2 is
+    begin
+        if n > 0 then
+            return n || ' is a positive number.';
+        elsif n < 0 then
+            return n || ' is a negative number.';
+        else
+            return n || ' is zero.';  
+       end if;
+   end;
+  /
+Function created.
+
+SQL> declare
+        x number;                 
+        result varchar2(50);       
+    begin
+        x := &n;                   
+  
+        result := check_positive_negative(x); 
+        dbms_output.put_line(result); 
+    end;
+  /
+Enter value for n: 56
+old   5:     x := &n;                   
+new   5:     x := 56;                   
+56 is a positive number.
+PL/SQL procedure successfully completed.
+
+Q8]write a function to check whether given number is odd or even.
+
+SQL> create or replace function check_odd_even(n in number)
+    return varchar2 is
+    begin
+        if mod(n, 2) = 0 then
+            return n || ' is an even number.';
+       else
+            return n || ' is an odd number.';
+        end if;
+    end;
+  /
+Function created.
+
+SQL> declare
+        x number;                  
+        result varchar2(50);       
+    begin
+        x := &n;                  
+        result := check_odd_even(x); 
+        dbms_output.put_line(result);
+    end;
+  /
+Enter value for n: 45
+old   5:     x := &n;                  
+new   5:     x := 45;                   
+45 is an odd number.
+PL/SQL procedure successfully completed.
+
+Q9]write a function to check given year is leap or not.
+
+SQL> create or replace function check_leap_year(year in number)
+    return varchar2 is
+    begin
+        if (mod(year, 4) = 0 and mod(year, 100) != 0) or (mod(year, 400) = 0) then
+            return year || ' is a leap year.';
+        else
+            return year || ' is not a leap year.';
+        end if;
+    end;
+ /
+Function created.
+
+SQL> declare
+        y number;                  
+        result varchar2(50);       
+    begin
+        y := &year;               
+        result := check_leap_year(y); 
+        dbms_output.put_line(result); 
+    end;
+  /
+Enter value for year: 2024
+old   5:     y := &year;                
+new   5:     y := 2024;                
+2024 is a leap year.
+PL/SQL procedure successfully completed.
+
+Q10]write a function to calculate face value of given number.
+
+SQL> create or replace function calculate_face_values(input_number in number)
+    return varchar2 is
+        result varchar2(4000):= '';  
+        d number;                     
+        n number := input_number;     
+    begin
+        result := 'face values of the digits in ' || n || ':';
+  
+        while n > 0 loop
+           d := mod(n, 10);         
+           result := result || chr(10) || 'face value: ' || d;  
+           n := floor(n / 10);      
+       end loop;
+       return result;  
+   end;
+   /
+function created.
+
+SQL> declare
+        x number;                  
+        result varchar2(4000);     
+    begin
+        x := &n;                   
+       result := calculate_face_values(x); 
+        dbms_output.put_line(result);
+    end;
+   /
+Enter value for n: 345
+old   5:     x := &n;                   
+new   5:     x := 345;                   
+face values of the digits in 345:
+face value: 5
+face value: 4
+face value: 3

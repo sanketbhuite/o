@@ -1,0 +1,28 @@
+create or replace procedure check_prime_number(p_number in number) is
+        a number(4);  
+        b number(4);  
+        c number(4); 
+    begin
+        a := p_number; 
+        b := 0;         
+        c := 0;        
+       for i in 1..a loop
+           b := mod(a, i);  
+          if b = 0 then
+               c := c + 1; 
+           end if;
+       end loop;
+       if c = 2 then
+          dbms_output.put_line(a || ' is a prime number.');
+      else
+           dbms_output.put_line(a || ' is not a prime number.');
+       end if;
+   end check_prime_number;
+  /
+
+Procedure created.
+
+SQL> begin
+        check_prime_number(7); 
+    end;
+    /

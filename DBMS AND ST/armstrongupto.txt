@@ -1,0 +1,21 @@
+declare
+       n number(4);
+       r number(4);
+       s number(4);
+    begin
+      for i in 1..1000
+      loop
+         s:=0;
+         n:=i;
+         while(n>0)
+         loop
+           r:=mod(n,10);
+           s:=s+r*r*r;
+           n:=floor(n/10);
+         end loop;
+         if s=i then 
+              dbms_output.put_line('Armstrong number:'||s);
+         end if;
+      end loop;
+    end;
+/

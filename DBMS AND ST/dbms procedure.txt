@@ -1,0 +1,348 @@
+                                                            B.Sc.(ECS)-II
+                                                               DBMS-II
+                                                         Practical Assignment-5(PL/SQL)
+
+
+Q1]write a PL/SQL procedure block to display message 'best of luck'.
+
+SQL> create or replace procedure greetings
+     as
+    begin
+     dbms_output.put_line('best of luck');
+     end;
+    /
+Procedure created.
+
+SQL> execute greetings;
+best of luck
+
+PL/SQL procedure successfully completed.
+
+Q2]create a PL/SQL procedure addition ,subtraction,multiplication,division.
+
+SQL>create or replace procedure arithmetic_operations(
+    p_no1 in number,  
+    p_no2 in number   
+) is
+    v_add number;        
+    v_sub number;    
+    v_mul number;  
+    v_div number;        
+begin
+    v_add := p_no1 + p_no2;
+    v_sub := p_no1 - p_no2;
+    v_mul := p_no1 * p_no2;
+    if p_no2 != 0 then
+        v_div := p_no1 / p_no2;
+    else
+        v_div := null; 
+    end if;
+    dbms_output.put_line('addition: ' || v_add);
+    dbms_output.put_line('subtraction: ' || v_sub);
+    dbms_output.put_line('multiplication: ' || v_mul);
+    if v_div is not null then
+        dbms_output.put_line('division: ' || v_div);
+    else
+        dbms_output.put_line('division: cannot divide by zero');
+    end if;
+end arithmetic_operations;
+/
+Procedure created.
+
+SQL> begin
+        arithmetic_operations(10, 5);
+    end;
+    /
+addition: 15
+subtraction: 5
+multiplication: 50
+division: 2
+
+PL/SQL procedure successfully completed.
+
+Q3]create a procedure sum of 1 to 100.
+
+SQL>create or replace procedure sum_of_no is
+        v_sum number := 0;  
+    begin
+      for i in 1..100 loop
+           v_sum := v_sum + i;  
+        end loop;
+       dbms_output.put_line('sum of numbers from 1 to 100:'|| v_sum);
+   end sum_of_no;
+   /
+Procedure created.
+
+SQL> begin
+        sum_of_no;
+    end;
+    /
+sum of numbers from 1 to 100: 5050
+
+PL/SQL procedure successfully completed.
+
+Q4]create a procedure to square and cube the insert into square cube table.
+
+SQL> create table square_cube (
+        n NUMBER,         
+        s NUMBER,         
+        c NUMBER           
+    );
+
+Table created.
+
+SQL>create or replace procedure c_square_cube is
+    begin
+      for i in 1..10 
+      loop
+            insert into square_cube (n, s, c)
+            values (i, i * i, i * i * i);
+     end loop;
+      dbms_output.put_line('Insertion of square and cube completed.');
+   end c_square_cube;
+  /
+
+Procedure created.
+
+SQL>begin
+        c_square_cube;
+    end;
+    /
+Insertion of square and cube completed.
+
+PL/SQL procedure successfully completed.
+
+SQL>select * from square_cube;
+
+         N          S          C
+---------- ---------- ----------
+         1          1          1
+         2          4          8
+         3          9         27
+         4         16         64
+         5         25        125
+         6         36        216
+         7         49        343
+         8         64        512
+         9         81        729
+        10        100       1000
+
+10 rows selected.
+
+Q5]create a procedure to Armstrong number.
+
+SQL>create or replace procedure check_armstrong_number(p_number in number) is
+        n number(4);  
+        s number(4);
+        r number(4);        
+        t  number(4);  
+     begin
+        n := p_number;  
+        s := 0;         
+        t := n;         
+
+       while (n > 0) loop
+           r :=mod(n, 10);          
+           s := s + r * r * r;      
+           n :=floor(n / 10);       
+       end loop;
+       if s = t then
+           dbms_output.put_line(t||' is an Armstrong number.');
+       else
+           dbms_output.put_line(t||' is not an Armstrong number.');
+       end if;
+   end check_armstrong_number;
+   /
+
+Procedure created.
+
+SQL>begin
+        check_armstrong_number(153);  
+   end;
+   /
+153 is an Armstrong number.
+
+PL/SQL procedure successfully completed.
+
+Q6]create a procedure to Prime number.
+
+SQL> create or replace procedure check_prime_number(p_number in number) is
+        a number(4);  
+        b number(4);  
+        c number(4); 
+    begin
+        a := p_number; 
+        b := 0;         
+        c := 0;        
+       for i in 1..a loop
+           b := mod(a, i);  
+          if b = 0 then
+               c := c + 1; 
+           end if;
+       end loop;
+       if c = 2 then
+          dbms_output.put_line(a || ' is a prime number.');
+      else
+           dbms_output.put_line(a || ' is not a prime number.');
+       end if;
+   end check_prime_number;
+  /
+
+Procedure created.
+
+SQL> begin
+        check_prime_number(7); 
+    end;
+    /
+7 is a prime number.
+
+PL/SQL procedure successfully completed.
+
+
+Q7]create a procedure to reverse number.
+
+create or replace procedure r_no(p_no in number) is
+    v_o number;  
+    v_r number := 0; 
+    v_d number;  
+begin
+    v_o := p_no;  
+    while v_o > 0 loop
+        v_d := mod(v_o, 10); 
+        v_r := v_r * 10 + v_d;  
+        v_o := floor(v_o / 10);      
+  end loop;
+    dbms_output.put_line('reversed number: ' || v_r);
+end r_no;
+/
+Procedure created.
+
+SQL> begin
+        r_no(12345);  
+    end;
+    /
+reversed number: 54321
+
+PL/SQL procedure successfully completed.
+
+Q8]create a procedure to Fibonacci series.
+
+create or replace procedure create_fibonacci(p in number) is
+    v_f number := 0;  
+    v_s number := 1; 
+    v_n number;         
+begin
+    dbms_output.put_line('fibonacci series:');
+    dbms_output.put_line(v_f);
+    dbms_output.put_line(v_s);
+    for i in 3..p loop
+        v_n := v_f + v_s;  
+        dbms_output.put_line(v_n);   
+        v_f := v_s;             
+        v_s := v_n;              
+    end loop;
+end create_fibonacci;
+/
+Procedure created.
+
+SQL> begin
+        create_fibonacci(10);
+    end;
+    /
+fibonacci series:
+0
+1
+1
+2
+3
+5
+8
+13
+21
+34
+
+PL/SQL procedure successfully completed.
+
+Q9]create a procedure to calculate circle area.
+
+SQL> create table circle (
+       radius number,
+        pi number(3,2),
+       area number
+    );
+Table created.
+
+SQL> create or replace procedure circle_area(p_r in number) is
+        a number;  
+        pi constant number(3,2) := 3.14;  
+    begin
+        a := pi * p_r * p_r;
+        insert into circle (radius, pi, area)values(p_r, pi, a);
+        dbms_output.put_line('Insertion completed for radius:'|| p_r);
+    end circle_area;
+   /
+Procedure created.
+
+SQL> begin
+        circle_area(5);
+    end;
+    /
+Insertion completed for radius: 5
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from circle;
+
+    RADIUS         PI       AREA
+---------- ---------- ----------
+         5       3.14       78.5
+
+Q10]create a procedure to 1-10 odd or even numbers.
+
+SQL> create table odd_even (
+        no number,             
+        type varchar2(4)    
+    );
+
+Table created.
+
+SQL> create or replace procedure c_odd_even is
+    begin
+        for i in 1..10 
+        loop
+            insert into odd_even (no, type)
+            values (i, CASE
+                          when mod(i, 2) = 0 then 'Even'
+                         else 'Odd'
+                      end
+);
+       end loop;
+      dbms_output.put_line('Insertion of odd and even numbers completed.');
+   end c_odd_even;
+   /
+Procedure created.
+
+SQL>begin
+        c_odd_even;
+    end;
+    /
+Insertion of odd and even numbers completed.
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from odd_even;
+
+        NO TYPE
+---------- ----
+         1 Odd
+         2 Even
+         3 Odd
+         4 Even
+         5 Odd
+         6 Even
+         7 Odd
+         8 Even
+         9 Odd
+        10 Even
+
+10 rows selected.

@@ -1,0 +1,16 @@
+declare
+        n number(4);          
+        d number(4);          
+        o number(4);    
+    begin
+       n:=&n;         
+       o:=n;        
+       dbms_output.put_line('Face values of the digits in'||o||':');
+       while n>0 
+       loop
+           d:=mod(n,10);      
+           dbms_output.put_line('Face value:'||d); 
+           n:=floor(n/10);  
+      end loop;
+    end;
+/

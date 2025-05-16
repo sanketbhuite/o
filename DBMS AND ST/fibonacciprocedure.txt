@@ -1,0 +1,22 @@
+create or replace procedure create_fibonacci(p in number) is
+    v_f number := 0;  
+    v_s number := 1; 
+    v_n number;         
+begin
+    dbms_output.put_line('fibonacci series:');
+    dbms_output.put_line(v_f);
+    dbms_output.put_line(v_s);
+    for i in 3..p loop
+        v_n := v_f + v_s;  
+        dbms_output.put_line(v_n);   
+        v_f := v_s;             
+        v_s := v_n;              
+    end loop;
+end create_fibonacci;
+/
+Procedure created.
+
+SQL> begin
+        create_fibonacci(10);
+    end;
+    /

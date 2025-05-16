@@ -1,0 +1,127 @@
+
+Assignment 1
+
+1. Internet Banking Application
+Test Case ID: TC_IB_01
+Test Scenario: Verify login with valid credentials
+Test Steps: 
+  1. Go to login page
+  2. Enter valid username and password
+  3. Click on login
+Expected Result: User should be redirected to dashboard
+
+Test Case ID: TC_IB_02
+Test Scenario: Verify fund transfer between own accounts
+Test Steps: 
+  1. Login to account
+  2. Navigate to fund transfer
+  3. Select source and destination account
+  4. Enter amount and confirm
+Expected Result: Amount should be transferred and confirmation message displayed
+
+...
+
+2. Gmail Login Functionality
+Test Case ID: TC_GM_01
+Test Scenario: Login with correct username and password
+Test Steps: 
+  1. Go to Gmail login
+  2. Enter valid email and password
+  3. Click Next
+Expected Result: User should be logged in successfully
+
+...
+
+3. College Admission Application
+Test Case ID: TC_CA_01
+Test Scenario: Submit form with valid data
+Test Steps:
+  1. Open admission form
+  2. Enter valid student details
+  3. Upload required documents
+  4. Submit form
+Expected Result: Confirmation message should appear
+
+...
+
+Assignment 2
+
+4. Online Order Processing
+Test Case ID: TC_OO_01
+Test Scenario: Add item to cart and checkout
+Test Steps:
+  1. Login to e-commerce site
+  2. Select a product and add to cart
+  3. Proceed to checkout
+Expected Result: Order should be placed successfully
+
+...
+
+5. Social Networking Sites
+Test Case ID: TC_SN_01
+Test Scenario: Post a status update
+Test Steps:
+  1. Login to account
+  2. Write a post in the status box
+  3. Click Post
+Expected Result: Status should appear on timeline
+
+...
+
+6. MS Word Application
+Test Case ID: TC_MS_01
+Test Scenario: Create and save a new document
+Test Steps:
+  1. Open MS Word
+  2. Create a new document
+  3. Type some text and save
+Expected Result: Document should be saved
+
+...
+
+7. Simple Calculator
+Test Case ID: TC_CAL_01
+Test Scenario: Validate addition
+Test Steps:
+  1. Open calculator
+  2. Enter numbers and press '+'
+  3. Check result
+Expected Result: Correct sum should be displayed
+
+...
+
+Assignment 3
+
+8. Ball Pen
+Test Case ID: TC_BP_01
+Test Scenario: Check ink flow
+Test Steps:
+  1. Uncap pen
+  2. Write on paper
+Expected Result: Ink should flow smoothly
+
+...
+
+9. Paint Application
+Test Case ID: TC_PA_01
+Test Scenario: Draw using pencil tool
+Test Steps:
+  1. Open Paint
+  2. Select pencil tool
+  3. Draw on canvas
+Expected Result: Line should appear
+
+...
+
+10. Online Flight Booking
+Test Case ID: TC_FB_01
+Test Scenario: Search flights
+Test Steps:
+  1. Open booking site
+  2. Enter source and destination
+  3. Select date and search
+Expected Result: List of available flights should be shown
+
+...
+
+(Only one example design per item is included here for brevity. You can copy the format to add more.)

@@ -1,0 +1,40 @@
+CREATE SEQUENCE seq_my_table_pk
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE;
+
+Sequence created.
+
+SQL> CREATE TABLE my_table (
+      id NUMBER PRIMARY KEY,  -- Primary key column
+      name VARCHAR2(100)
+    );
+
+Table created.
+SQL> CREATE OR REPLACE TRIGGER trg_generate_pk
+    BEFORE INSERT ON my_table
+    FOR EACH ROW
+    DECLARE
+      v_new_id NUMBER;  
+    BEGIN
+      -- If the primary key (id) is not provided (NULL),
+      IF :NEW.id IS NULL THEN
+      SELECT seq_my_table_pk.NEXTVAL
+       INTO v_new_id
+       FROM dual;
+       :NEW.id := v_new_id;
+     END IF;
+   END;
+   /
+
+Trigger created.
+
+SQL> INSERT INTO my_table (id, name) VALUES (100, 'Jane Doe');
+
+1 row created.
+
+SQL> INSERT INTO my_table (name) VALUES ('John Doe');
+
+1 row created.
+

@@ -1,0 +1,564 @@
+                                                             B.Sc.(ECS)-II
+                                                                 DBMS-II
+                                                         Practical Assignment-3(PL/SQL)
+
+Q1]write a PL/SQL block to find out given number is odd or not.
+ 
+SQL>declare 
+       n number(4);
+    Begin
+        n:=&n;
+        if mod(n,2)=0 then
+           dbms_output.put_line(n||'is even number.');
+        else
+           dbms_output.put_line(n||'is odd number.');
+       end if;
+    end;
+/
+OUTPUT:-
+Enter value for n: 24
+old   4:    n:=&n;
+new   4:    n:=24;
+24is even number.
+
+Q2]write a PL/SQL block to find out given number is positive or negative.
+
+SQL>declare
+       n number(4);
+    begin
+       n:=&n;
+       if(n>0)then
+             dbms_output.put_line(n||'is positive number.');
+       else
+             dbms_output.put_line(n||'is negative number.');
+       end if;
+    end;
+/
+OUTPUT:-
+Enter value for n: 57
+old   4:     n:=&n;
+new   4:     n:=57;
+57is positive number.
+
+Q3]write a PL/SQL block to display month name when users enter any appropriate number.
+
+SQL>declare
+       a number(4);
+    begin
+       a:=&month_number;
+       if(a=1) then
+            dbms_output.put_line('January');
+       elsif(a=2) then
+            dbms_output.put_line('February');
+       elsif(a=3) then
+            dbms_output.put_line('March');
+       elsif(a=4) then
+            dbms_output.put_line('April');
+       elsif(a=5) then
+            dbms_output.put_line('May');
+       elsif(a=6) then
+            dbms_output.put_line('June');
+       elsif(a=7) then
+            dbms_output.put_line('July');
+       elsif(a=8) then
+            dbms_output.put_line('August');
+       elsif(a=9) then
+            dbms_output.put_line('September');
+       elsif(a=10) then
+            dbms_output.put_line('October');
+       elsif(a=11) then
+            dbms_output.put_line('November');
+       elsif(a=12) then
+            dbms_output.put_line('December');
+       else
+           dbms_output.put_line('invalid month number');
+       end if;
+    end;
+/
+OUTPUT:-
+Enter value for month_number: 5
+old   4:     a := &month_number;
+new   4:     a := 5;
+May
+
+Q4]write a PL/SQL block to find out factorial of given number.
+
+SQL>declare
+       n number(4);
+       f number(4);
+    begin
+       n:=&n;
+       f:=1;
+       for i in 1..n
+       loop
+          f:=f*i;
+       end loop;
+          dbms_output.put_line('factorial:'||f);
+    end;
+/
+OUTPUT:-
+Enter value for n: 4
+old   5:   n:=&n;
+new   5:   n:=4;
+factorial:24
+
+Q5]write a PL/SQL block to find out given number is Prime or not.
+
+SQL>declare
+       a number(4);
+       b number(4);
+       c number(4);
+    begin
+       a:=&a;
+       b:=0;
+       c:=0;
+       for i in 1..a
+       loop
+         b:=mod(a,i);
+         if b=0 then
+            c:=c+1;
+         end if;
+       end loop;
+       if c=2 then 
+           dbms_output.put_line(a||'is prime number.');
+       else
+           dbms_output.put_line(a||'is not prime number.');
+       end if;
+    end;
+/
+OUTPUT:-
+Enter value for a: 37
+old   6:  a:=&a;
+new   6:  a:=37;
+37is prime number.
+
+Q6]write a PL/SQL block to find out given number is Palindrome or not.
+
+SQL>declare
+       n number(4);          
+       r number:=0;     
+       o number(4);         
+    begin
+       n:= &n;      
+       o:=n;     
+       while n > 0 
+       loop
+          r:=r*10 +mod(n,10);          
+          n:=floor(n/10);        
+       end loop;
+       if o=r then
+             dbms_output.put_line(o||'is a Palindrome.');
+       else
+             dbms_output.put_line(o||'is not a Palindrome.');
+       end if;
+    end;
+/
+OUTPUT:-
+Enter value for n: 121
+old   6:     n:= &n;
+new   6:     n:= 121;
+121is a Palindrome.
+
+Q7]write a PL/SQL block to find out given number is Perfect or not.
+
+SQL>declare
+       x number(4);          
+       s number(4):=0; 
+    begin
+       x:=&n;         
+       for i in 1..(x/2) 
+       loop
+          if mod(x,i)=0 then
+            s:= s+i; 
+          end if;
+       end loop;
+       if s=x then
+            dbms_output.put_line(x||'is a Perfect Number.');
+       else
+            dbms_output.put_line(x||'is not a Perfect Number.');
+       end if;
+    end;
+/
+OUTPUT:-
+Enter value for n: 6
+old   5:     x:=&n;
+new   5:     x:=6;
+6is a Perfect Number.
+
+Q8]write a PL/SQL block to find out given number is Armstrong or not.
+
+SQL>declare
+       n number(4);
+       r number(4);
+       s number(4);
+       t number(4);
+    begin
+       n:=&n;
+       s:=0;
+       t:=n;
+       while(n>0)
+       loop
+          r:=mod(n,10);
+          s:=s+r*r*r;
+          n:=floor(n/10);
+       end loop;
+       if s=t then 
+            dbms_output.put_line(t||'number is armstrong.');
+      else
+            dbms_output.put_line(t||'number is not armstrong.');
+      end if;
+  end;
+/
+OUTPUT:-
+Enter value for n: 153
+old   7:  n:=&n;
+new   7:  n:=153;
+153number is Armstrong.
+
+Q9]write a PL/SQL block to find out face value of given number.
+
+SQL>declare
+        n number(4);          
+        d number(4);          
+        o number(4);    
+    begin
+       n:=&n;         
+       o:=n;        
+       dbms_output.put_line('Face values of the digits in'||o||':');
+       while n>0 
+       loop
+           d:=mod(n,10);      
+           dbms_output.put_line('Face value:'||d); 
+           n:=floor(n/10);  
+      end loop;
+    end;
+/
+OUTPUT:-
+Enter value for n: 345
+old   6:     n:=&n;
+new   6:     n:=345;
+Face values of the digits in345:
+Face value:5
+Face value:4
+Face value:3
+
+Q10]write a PL/SQL block to find out given year is leap or not.
+
+SQL>declare
+       n number(4);
+    begin
+       n:=&year;
+       if mod(n,4)=0 then
+          dbms_output.put_line(n||'is leap year.');
+       else
+          dbms_output.put_line(n||'is not leap year.');
+      end if;
+    end;
+/
+OUTPUT:-
+Enter value for year: 2024
+old   4:     n:=&year;
+new   4:     n:=2024;
+2024is leap year.
+
+Q11]write a PL/SQL block to display Armstrong number between 1 to 1000.
+
+SQL>declare
+       n number(4);
+       r number(4);
+       s number(4);
+    begin
+      for i in 1..1000
+      loop
+         s:=0;
+         n:=i;
+         while(n>0)
+         loop
+           r:=mod(n,10);
+           s:=s+r*r*r;
+           n:=floor(n/10);
+         end loop;
+         if s=i then 
+              dbms_output.put_line('Armstrong number:'||s);
+         end if;
+      end loop;
+    end;
+/
+OUTPUT:-
+Armstrong number:1
+Armstrong number:153
+Armstrong number:370
+Armstrong number:371
+Armstrong number:407
+
+Q12]write a PL/SQL block to display Prime number between 1 to 1000.
+
+SQL>declare
+      a number(4);
+      b number(4);
+      c number(4);
+    begin
+       for i in 1..1000
+       loop
+        a:=i;
+        c:=0;
+        for j in 1..a
+        loop
+          b:=mod(a,j);
+          if b=0 then
+            c:=c+1;
+          end if;
+        end loop;
+        if c=2 then 
+           dbms_output.put_line('prime number:'||a);
+        end if;
+       end loop;
+    end;
+/
+OUTPUT:-
+prime number:2
+prime number:3
+prime number:5
+prime number:7
+prime number:11
+prime number:13
+prime number:17
+prime number:19
+prime number:23
+prime number:29
+prime number:31
+prime number:37
+prime number:41
+prime number:43
+prime number:47
+prime number:53
+prime number:59
+prime number:61
+prime number:67
+prime number:71
+prime number:73
+prime number:79
+prime number:83
+prime number:89
+prime number:97
+prime number:101
+prime number:103
+prime number:107
+prime number:109
+prime number:113
+prime number:127
+prime number:131
+prime number:137
+prime number:139
+prime number:149
+prime number:151
+prime number:157
+prime number:163
+prime number:167
+prime number:173
+prime number:179
+prime number:181
+prime number:191
+prime number:193
+prime number:197
+prime number:199
+prime number:211
+prime number:223
+prime number:227
+prime number:229
+prime number:233
+prime number:239
+prime number:241
+prime number:251
+prime number:257
+prime number:263
+prime number:269
+prime number:271
+prime number:277
+prime number:281
+prime number:283
+prime number:293
+prime number:307
+prime number:311
+prime number:313
+prime number:317
+prime number:331
+prime number:337
+prime number:347
+prime number:349
+prime number:353
+prime number:359
+prime number:367
+prime number:373
+prime number:379
+prime number:383
+prime number:389
+prime number:397
+prime number:401
+prime number:409
+prime number:419
+prime number:421
+prime number:431
+prime number:433
+prime number:439
+prime number:443
+prime number:449
+prime number:457
+prime number:461
+prime number:463
+prime number:467
+prime number:479
+prime number:487
+prime number:491
+prime number:499
+prime number:503
+prime number:509
+prime number:521
+prime number:523
+prime number:541
+prime number:547
+prime number:557
+prime number:563
+prime number:569
+prime number:571
+prime number:577
+prime number:587
+prime number:593
+prime number:599
+prime number:601
+prime number:607
+prime number:613
+prime number:617
+prime number:619
+prime number:631
+prime number:641
+prime number:643
+prime number:647
+prime number:653
+prime number:659
+prime number:661
+prime number:673
+prime number:677
+prime number:683
+prime number:691
+prime number:701
+prime number:709
+prime number:719
+prime number:727
+prime number:733
+prime number:739
+prime number:743
+prime number:751
+prime number:757
+prime number:761
+prime number:769
+prime number:773
+prime number:787
+prime number:797
+prime number:809
+prime number:811
+prime number:821
+prime number:823
+prime number:827
+prime number:829
+prime number:839
+prime number:853
+prime number:857
+prime number:859
+prime number:863
+prime number:877
+prime number:881
+prime number:883
+prime number:887
+prime number:907
+prime number:911
+prime number:919
+prime number:929
+prime number:937
+prime number:941
+prime number:947
+prime number:953
+prime number:967
+prime number:971
+prime number:977
+prime number:983
+prime number:991
+prime number:997
+
+Q13]write a PL/SQL block to display Perfect number between 1 to 1000.
+
+SQL>declare
+        x number;          
+        s number:=0;     
+    begin 
+       for x in 1..1000 
+       loop       
+          s:=0;  
+          for j in 1..(x/2) 
+          loop
+             if mod(x,j)=0 then
+                 s:=s+j; 
+             end if;
+          end loop;
+          if s=x then
+              dbms_output.put_line('Perfect Number:'||x);
+          end if;
+       end loop;
+    end;
+/
+OUTPUT:-
+Perfect Number:1
+Perfect Number:6
+Perfect Number:28
+Perfect Number:496
+
+Q14]write a PL/SQL block to display following output.
+
+SQL>declare 
+      n number(4);
+    begin
+      n := &n; 
+      for i in 1..n 
+      loop
+        for j in 1..i 
+        loop
+           dbms_output.put('*'); 
+           dbms_output.put(' ');
+        end loop;
+          dbms_output.put_line(''); 
+      end loop;
+    end;
+/
+OUTPUT:-
+Enter value for n: 5
+old   4:  n := &n;
+new   4:  n := 5;
+*
+*  *
+*  *  *
+*  *  *  *
+*  *  *  *  *
+
+Q15]write a PL/SQL block to display following output.
+
+SQL>declare 
+      n number(4);
+    begin
+       n := &n; 
+      for i in 1..n 
+      loop
+         for j in 1..i loop
+            dbms_output.put(j || ' '); 
+         end loop;
+           dbms_output.put_line(''); 
+      end loop;
+    end;
+/
+OUTPUT:-
+Enter value for n: 4
+old   4:  n := &n;
+new   4:  n := 4;
+1
+1  2
+1  2  3
+1  2  3  4

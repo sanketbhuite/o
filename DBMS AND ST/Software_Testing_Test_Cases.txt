@@ -1,0 +1,76 @@
+
+Assignment 1
+
+1. Internet Banking Application
+- Test Case 1: Verify login with valid credentials.
+- Test Case 2: Verify fund transfer between own accounts.
+- Test Case 3: Verify password reset functionality.
+- Test Case 4: Check session timeout after inactivity.
+- Test Case 5: Validate incorrect OTP handling.
+
+2. Gmail Login Functionality
+- Test Case 1: Login with correct username and password.
+- Test Case 2: Login attempt with invalid credentials.
+- Test Case 3: Forgot password link functionality.
+- Test Case 4: Login with two-step verification.
+- Test Case 5: Check error message for empty fields.
+
+3. College Admission Application
+- Test Case 1: Submit form with all valid data.
+- Test Case 2: Check mandatory field validation.
+- Test Case 3: Upload documents (marksheet, photo).
+- Test Case 4: Validate confirmation message after submission.
+- Test Case 5: Check email/SMS notification on submission.
+
+Assignment 2
+
+4. Online Order Processing
+- Test Case 1: Add item to cart and proceed to checkout.
+- Test Case 2: Apply valid/invalid discount coupon.
+- Test Case 3: Cancel order before shipping.
+- Test Case 4: Verify email confirmation after order.
+- Test Case 5: Handle payment failure scenario.
+
+5. Social Networking Sites
+- Test Case 1: Post a status update.
+- Test Case 2: Upload and view profile picture.
+- Test Case 3: Send/accept friend requests.
+- Test Case 4: Check privacy settings.
+- Test Case 5: Search for other users.
+
+6. MS Word Application
+- Test Case 1: Create and save a new document.
+- Test Case 2: Use formatting tools (bold, italic, underline).
+- Test Case 3: Spell check functionality.
+- Test Case 4: Open and edit existing document.
+- Test Case 5: Export to PDF.
+
+7. Simple Calculator
+- Test Case 1: Validate addition of two numbers.
+- Test Case 2: Division by zero error.
+- Test Case 3: Use of decimal numbers.
+- Test Case 4: Use of clear/reset button.
+- Test Case 5: Verify order of operations.
+
+Assignment 3
+
+8. Ball Pen
+- Test Case 1: Check ink flow on paper.
+- Test Case 2: Verify pen cap fits securely.
+- Test Case 3: Drop test for durability.
+- Test Case 4: Check for leakage.
+- Test Case 5: Writing length (how long it writes before drying).
+
+9. Paint Application
+- Test Case 1: Open and draw using pencil tool.
+- Test Case 2: Fill color in a closed shape.
+- Test Case 3: Save file in different formats.
+- Test Case 4: Undo/redo functionality.
+- Test Case 5: Insert and resize shapes.
+
+10. Online Flight Booking
+- Test Case 1: Search flights for selected source and destination.
+- Test Case 2: Select and book flight with valid passenger details.
+- Test Case 3: Payment with valid/invalid card.
+- Test Case 4: Cancel booked flight.
+- Test Case 5: Generate and download ticket.

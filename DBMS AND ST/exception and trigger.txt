@@ -1,0 +1,424 @@
+                                                         Practical Assignment-7(PL/SQL)
+
+Q1]write a PL/SQL block to handle following exception.
+  a)no_data_found
+  b)too_many_rows
+  c)zero_divide
+  d)cursor_already_open
+
+SQL>create table emp1(eno number(4),ename varchar2(10),salary number(10));
+
+Table created.
+
+SQL> insert into emp1 values (1, 'alice', 4000);
+
+1 row created.
+
+SQL> insert into emp1 values (2, 'bob', 4500);
+
+1 row created.
+
+SQL> insert into emp1 values (3, 'charlie', 5000);
+
+1 row created.
+
+SQL> insert into emp1 values (4, 'diana', 5500);
+
+1 row created.
+
+a) 
+SQL>declare
+      veno number(4):=1;
+      vename varchar2(10);
+      vsalary  number(10);
+    begin
+      select ename,salary into vename,vsalary from emp1 where eno=veno;
+      dbms_output.put_line(vename||''||vsalary);
+      exception
+         when no_data_found then
+           dbms_output.put_line('emp no does not exist');
+    end;
+/
+alice4000
+PL/SQL procedure successfully completed.
+
+b)
+SQL>declare
+     vsalary number(4):;
+    begin
+     select salary into vsalary from emp1;
+     dbms_output.put_line(vsalary);
+     exception
+       when too_many_rows then
+       dbms_output.put_line('not return more rows or values');
+    end;
+/
+not return more rows or values
+PL/SQL procedure successfully completed.
+
+c)
+SQL>declare
+      a number(4);
+      b number(4);
+      c number(4);
+    begin
+      a:=&a;
+      b:=&b;
+      c:=a/b;
+      dbms_output.put_line(c);
+      exception
+        when zero_divide then
+        dbms_output.put_line('b can not be zero');
+    end;
+/
+Enter value for a: 25
+old   6:       a:=&a;
+new   6:       a:=25;
+Enter value for b: 5
+old   7:       b:=&b;
+new   7:       b:=5;
+5
+PL/SQL procedure successfully completed.
+
+d)
+SQL>declare
+        cursor c1 IS select * from emp1; 
+        I emp1%rowtype; 
+    begin
+        open c1; 
+        loop
+            fetch c1 into I; 
+            exit when c1%notfound;
+            dbms_output.put_line(I.ename || ' ' || I.salary); 
+      end loop;
+      open c1;
+    exception
+       when cursor_already_open then
+           dbms_output.put_line('before reopen we must close the cursor.');
+   end;
+   /
+alice 4000
+bob 4500
+charlie 5000
+diana 5500
+PL/SQL procedure successfully completed.
+   OR
+SQL> declare
+  2          cursor c1 IS select * from emp1;
+  3          I emp1%rowtype;
+  4      begin
+  5          open c1;
+  6          loop
+  7              fetch c1 into I;
+  8              exit when c1%notfound;
+  9              dbms_output.put_line(I.ename || ' ' || I.salary);
+ 10        end loop;
+ 11        open c1;
+ 12      exception
+ 13         when cursor_already_open then
+ 14             dbms_output.put_line('before reopen we must close the cursor.');
+ 15     end;
+ 16     /
+alice 4000
+bob 4500
+charlie 5000
+diana 5500
+before reopen we must close the cursor.
+PL/SQL procedure successfully completed.
+
+Q2]write a PL/SQL block to handle user defined exception.
+SQL>declare
+  invalid_salary exception;
+  salary number := -5000; 
+begin
+  if salary < 0 then
+    raise invalid_salary;
+  end if;
+  dbms_output.put_line('salary: ' || salary);
+exception
+  when invalid_salary then
+    dbms_output.put_line('error: salary cannot be negative.');
+  when others then
+    dbms_output.put_line('an unexpected error occurred: ' || sqlerrm);
+end;
+/
+error: salary cannot be negative.
+PL/SQL procedure successfully completed.
+
+Q3]write a PL/SQL block to handle unnamed system exception.
+SQL>declare
+  num1 number := 10;
+  num2 number := 0; 
+ result number;
+begin
+  result := num1 / num2;
+  dbms_output.put_line('Result: ' || result);
+exception
+  when others then
+    dbms_output.put_line('An error occurred: ' || sqlerrm);
+end;
+/
+An error occurred: ORA-01476: divisor is equal to zero
+PL/SQL procedure successfully completed.
+
+Q4]write a package which contain procedure and function.
+SQL> CREATE TABLE students (
+        student_id NUMBER PRIMARY KEY,
+        name VARCHAR2(50),
+        exam_score NUMBER,
+       project_score NUMBER,
+        final_grade NUMBER
+    );
+
+Table created.
+SQL> INSERT INTO students (student_id, name, exam_score, project_score, final_grade)
+    VALUES (1, 'Alice Johnson', 85, 90, NULL);
+
+1 row created.
+
+SQL> INSERT INTO students (student_id, name, exam_score, project_score, final_grade)
+   VALUES (2, 'Bob Smith', 75, 80, NULL);
+
+1 row created.
+
+SQL> INSERT INTO students (student_id, name, exam_score, project_score, final_grade)
+   VALUES (3, 'Charlie Brown', 90, 85, NULL);
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> CREATE OR REPLACE PACKAGE student_pkg AS
+        FUNCTION calculate_final_grade(p_exam_score IN NUMBER, p_project_score IN NUMBER) RETURN NUMBER;
+        PROCEDURE update_student_grade(p_student_id IN NUMBER);
+    END student_pkg;
+    /
+
+Package created.
+
+SQL> CREATE OR REPLACE PACKAGE BODY student_pkg AS
+        FUNCTION calculate_final_grade(p_exam_score IN NUMBER, p_project_score IN NUMBER) RETURN NUMBER IS
+        BEGIN
+            RETURN (p_exam_score * 0.7) + (p_project_score * 0.3);
+        END calculate_final_grade;
+       PROCEDURE update_student_grade(p_student_id IN NUMBER) IS
+          v_exam_score NUMBER;
+           v_project_score NUMBER;
+           v_final_grade NUMBER;
+      BEGIN
+           SELECT exam_score, project_score
+           INTO v_exam_score, v_project_score
+           FROM students
+           WHERE student_id = p_student_id;
+           v_final_grade := calculate_final_grade(v_exam_score, v_project_score);
+           UPDATE students
+           SET final_grade = v_final_grade
+           WHERE student_id = p_student_id;
+            COMMIT;
+       END update_student_grade;
+   END student_pkg;
+   /
+
+Package body created.
+
+SQL> DECLARE
+        v_final_grade NUMBER;
+    BEGIN
+        v_final_grade := student_pkg.calculate_final_grade(85, 90);
+        DBMS_OUTPUT.PUT_LINE('Calculated Final Grade: ' || v_final_grade);
+    END;
+    /
+Calculated Final Grade: 86.5
+
+PL/SQL procedure successfully completed.
+
+SQL> BEGIN
+        student_pkg.update_student_grade(1);
+        DBMS_OUTPUT.PUT_LINE('Final grade updated successfully for student ID 1!');
+    END;
+    /
+Final grade updated successfully for student ID 1!
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT * FROM students;
+
+STUDENT_ID NAME                                               EXAM_SCORE PROJECT_SCORE FINAL_GRADE
+---------- -------------------------------------------------- ---------- ------------- -----------
+         1 Alice Johnson                                              85      90        86.5
+
+         2 Bob Smith                                                  75      80
+
+         3 Charlie Brown                                              90      85
+
+
+SQL> DECLARE
+        v_student_id NUMBER;
+    BEGIN
+        FOR student_rec IN (SELECT student_id FROM students) LOOP
+            student_pkg.update_student_grade(student_rec.student_id);
+        END LOOP;
+        DBMS_OUTPUT.PUT_LINE('All student final grades updated successfully!');
+    END;
+   /
+All student final grades updated successfully!
+
+PL/SQL procedure successfully completed.
+
+
+Q5]create a trigger to check maximum age.
+
+SQL>create table stud (
+        roll_no number(5),
+        name varchar2(10),
+        age number(10)
+    );
+Table created.
+
+SQL> CREATE OR REPLACE TRIGGER checkmaxage
+    before insert or update on stud
+    for each row
+    begin
+        if :new.age >30 then
+            raise_application_error(-20001,'Age should not be greater than 30');
+        end if;
+    end;
+   /
+
+Trigger created.
+
+SQL>insert into stud (roll_no, name, age) values (1, 'Alice', 35);
+insert into stud (roll_no, name, age) values (1, 'Alice', 35)
+            *
+ERROR at line 1:
+ORA-20001: Age should not be greater than 30
+ORA-06512: at "SYSTEM.CHECKMAXAGE", line 3
+ORA-04088: error during execution of trigger 'SYSTEM.CHECKMAXAGE'
+
+
+SQL>insert into stud (roll_no,name,age)values(2, 'Bob', 25);
+
+1 row created.
+
+Q6]create a trigger to check minimum age.
+
+SQL>CREATE OR REPLACE TRIGGER checkmaxage
+    before insert or update on stud
+    for each row
+    begin
+        if :new.age <18 then
+            raise_application_error(-20001,'Age should not be less than 18');
+        end if;
+    end;
+   /
+
+Trigger created.
+
+SQL>insert22:31 24-03-2025 into stud (roll_no,name,age)values(1, 'Alice', 17);
+insert into stud (roll_no,name,age)values(1, 'Alice', 17)
+            *
+ERROR at line 1:
+ORA-20001: Age should not be less than 18
+ORA-06512: at "SYSTEM.CHECKMAXAGE", line 3
+ORA-04088: error during execution of trigger 'SYSTEM.CHECKMAXAGE'
+
+
+SQL>insert into stud (roll_no,name,age)values(2, 'Bob', 20);
+
+1 row created.
+
+Q7]create a trigger to generate primary key.
+
+SQL> CREATE SEQUENCE seq_my_table_pk
+    START WITH 1
+    INCREMENT BY 1
+    NOCACHE
+    NOCYCLE;
+
+Sequence created.
+
+SQL> CREATE TABLE my_table (
+      id NUMBER PRIMARY KEY,  -- Primary key column
+      name VARCHAR2(100)
+    );
+
+Table created.
+SQL> CREATE OR REPLACE TRIGGER trg_generate_pk
+    BEFORE INSERT ON my_table
+    FOR EACH ROW
+    DECLARE
+      v_new_id NUMBER;  
+    BEGIN
+      -- If the primary key (id) is not provided (NULL),
+      IF :NEW.id IS NULL THEN
+      SELECT seq_my_table_pk.NEXTVAL
+       INTO v_new_id
+       FROM dual;
+       :NEW.id := v_new_id;
+     END IF;
+   END;
+   /
+
+Trigger created.
+
+SQL> INSERT INTO my_table (id, name) VALUES (100, 'Jane Doe');
+
+1 row created.
+
+SQL> INSERT INTO my_table (name) VALUES ('John Doe');
+
+1 row created.
+
+Q8]write a trigger which keeps backup of data of emp table for each update and delete operation in table emp_backup along with employee no and name also store operation date and operation type(update or delete) in backup table.
+emp_backup(eno ,enm,oper_date,oper_type).
+
+SQL>create table emp_backup(eno number(4),ename varchar2(10),oper_date date,oper_type varchar2(30));
+Table created.
+
+SQL>CREATE OR REPLACE TRIGGER audit_trail
+BEFORE UPDATE OR DELETE ON emp1
+FOR EACH ROW
+DECLARE
+BEGIN
+    IF UPDATING THEN
+        INSERT INTO emp_backup VALUES (:old.eno, :old.ename, SYSDATE, 'update');
+    ELSIF DELETING THEN
+        INSERT INTO emp_backup VALUES (:old.eno, :old.ename, SYSDATE, 'delete');
+    END IF;
+END;
+/
+Trigger created.
+
+SQL> UPDATE emp1 SET ename = 'NewName' WHERE eno = 1;
+
+1 row updated.
+
+SQL> DELETE FROM emp1 WHERE eno = 1;
+
+1 row deleted.
+
+SQL> SELECT * FROM emp_backup;
+
+       ENO ENAME      OPER_DATE OPER_TYPE
+---------- ---------- --------- ------------------------------
+         1 alice      24-MAR-25 update
+         1 NewName    24-MAR-25 delete
+
+SQL> UPDATE emp1 SET ename = 'John' WHERE eno = 2;
+
+1 row updated.
+
+SQL> DELETE FROM emp1 WHERE eno = 3;
+
+1 row deleted.
+
+SQL> SELECT * FROM emp_backup;
+
+       ENO ENAME      OPER_DATE OPER_TYPE
+---------- ---------- --------- ------------------------------
+         1 alice      24-MAR-25 update
+         1 NewName    24-MAR-25 delete
+         2 bob        24-MAR-25 update
+         3 charlie    24-MAR-25 delete

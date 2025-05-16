@@ -1,0 +1,15 @@
+> DECLARE 
+             p  NUMBER := &p; 
+            r  NUMBER := &r; 
+            t  NUMBER := &t; 
+            si NUMBER; 
+            ci NUMBER; 
+         BEGIN 
+             si := (p * r * t) / 100; 
+      
+            ci := p * POWER((1 + r / 100), t) - p; 
+       
+            DBMS_OUTPUT.PUT_LINE('Simple Interest: Rs. ' || si); 
+            DBMS_OUTPUT.PUT_LINE('Compound Interest: Rs. ' || ci); 
+        END; 
+        / 

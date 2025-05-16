@@ -1,0 +1,20 @@
+declare
+            cursor c1 (c number) is
+            select emp_name, salary
+            from Employee
+            where emp_no = c;
+        v_emp_name varchar2(10);
+        v_salary number(10);
+        n number;
+    begin
+      n := &n;
+       open c1(n);
+       fetch c1 into v_emp_name, v_salary;
+       if c1%found then
+           dbms_output.put_line('Employee Name:'||v_emp_name||',Salary'||v_salary);
+       else
+           dbms_output.put_line('No employee found with emp_no:'|| n);
+       end if;
+       close c1;
+   end;
+   /

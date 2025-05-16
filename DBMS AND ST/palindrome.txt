@@ -1,0 +1,19 @@
+declare
+       n number(4);          
+       r number:=0;     
+       o number(4);         
+    begin
+       n:= &n;      
+       o:=n;     
+       while n > 0 
+       loop
+          r:=r*10 +mod(n,10);          
+          n:=floor(n/10);        
+       end loop;
+       if o=r then
+             dbms_output.put_line(o||'is a Palindrome.');
+       else
+             dbms_output.put_line(o||'is not a Palindrome.');
+       end if;
+    end;
+/

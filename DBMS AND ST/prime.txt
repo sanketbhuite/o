@@ -1,0 +1,22 @@
+declare
+       a number(4);
+       b number(4);
+       c number(4);
+    begin
+       a:=&a;
+       b:=0;
+       c:=0;
+       for i in 1..a
+       loop
+         b:=mod(a,i);
+         if b=0 then
+            c:=c+1;
+         end if;
+       end loop;
+       if c=2 then 
+           dbms_output.put_line(a||'is prime number.');
+       else
+           dbms_output.put_line(a||'is not prime number.');
+       end if;
+    end;
+/

@@ -1,0 +1,15 @@
+declare
+  invalid_salary exception;
+  salary number := -5000; 
+begin
+  if salary < 0 then
+    raise invalid_salary;
+  end if;
+  dbms_output.put_line('salary: ' || salary);
+exception
+  when invalid_salary then
+    dbms_output.put_line('error: salary cannot be negative.');
+  when others then
+    dbms_output.put_line('an unexpected error occurred: ' || sqlerrm);
+end;
+/
